@@ -12,6 +12,9 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
+            - name: Install pg_isready
+              run: apt-get install postgresql-client-9.6
+
             - name: Docker compose up
               run: docker-compose up -d
 
@@ -19,4 +22,9 @@ jobs:
               run: docker ps
 
             - name: connect to container
-              run: curl http://localhost:5432
+              run: |
+                while ! pg_isready -h localhost -p 5432 -U docker
+                do
+                    echo "$(date) - waiting for database to start"
+                    sleep 10
+                done
