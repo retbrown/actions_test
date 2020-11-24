@@ -3,8 +3,18 @@ version: '3.7'
 services:
 
   db:
-    image: nginx
+    build:
+      context: ./
+      dockerfile: ./Dockerfile_db
+    healthcheck:
+      test: /usr/bin/pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
     ports:
-      - "8080:80"
+      - "5432:5432"
     environment:
-      - NGINX_POST=80
+      - POSTGRES_DB=docker
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_PORT=5432

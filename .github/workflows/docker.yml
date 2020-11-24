@@ -19,4 +19,4 @@ jobs:
               run: docker ps
 
             - name: connect to container
-              run: curl http://localhost:8080
+              run: curl http://localhost:5432
