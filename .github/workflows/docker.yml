@@ -11,7 +11,9 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
-
+            
+            - name: Who am i
+              run: whoami
             - name: Install pg_isready
               run: sudo apt-get install postgresql-client-9.6
 
